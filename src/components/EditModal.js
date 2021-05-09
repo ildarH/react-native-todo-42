@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TextInput, Modal, Alert} from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {
-  faWindowClose,
-  faCheckSquare
-} from '@fortawesome/free-solid-svg-icons';
+import {View, StyleSheet, TextInput, Modal, Alert, Button, Switch} from 'react-native';
 import {THEME} from '../theme';
-import { AppButton } from './ui/AppButton';
-import { AppText } from './ui/AppText';
+import {AppText} from './ui/AppText';
+import {AppTextBold} from './ui/AppTextBold';
 
-export const EditModal = ({visible, onCancel, text, onSave}) => {
+export const EditModal = ({visible, onCancel, text, priority, onSave}) => {
   const [title, setTitle] = useState(text);
+  const [order, setOrder] = useState(priority);
+  const toggleOrder = () => setOrder(previousState => !previousState);
   const saveHandler = () => {
     if (title.trim().length < 3) {
       Alert.alert('Ошибка', 'Минимальная длина 3 символа.');
@@ -25,27 +22,46 @@ export const EditModal = ({visible, onCancel, text, onSave}) => {
   return (
     <Modal visible={visible} animationType="fade">
       <View style={styles.container}>
-        <Text style={styles.header}>Изменить название</Text>
+        <AppTextBold style={styles.header}>Изменить название</AppTextBold>
+        <View style={styles.sheetPriority}>
+          <View style={styles.sheetPriorityLabel}>
+            {order ? (
+              <AppText>Высокий приоритет</AppText>
+            ) : (
+              <AppText>Обычный приоритет</AppText>
+            )}
+          </View>
+          <View style={styles.sheetPrioritySwitch}>
+            <Switch
+              trackColor={{false: THEME.LOW_PRIORITY_COLOR, true: THEME.HIGH_PRIORITY_COLOR}}
+              thumbColor={order ? THEME.HIGH_PRIORITY_COLOR : THEME.LOW_PRIORITY_COLOR}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleOrder}
+              value={order}
+            />
+          </View>
+        </View>
         <TextInput
           value={title}
           onChangeText={setTitle}
           style={styles.input}
           placeholder="Введите название"
+          placeholderTextColor={THEME.TEXT_PLACEHOLDER_COLOR}
           maxLength={128}
         />
         <View style={styles.buttons}>
-        <AppButton
-        style={styles.button}
-          onPress={cancelHanlder}>
-          <FontAwesomeIcon icon={faWindowClose} size={ THEME.ICON_SIZE }/>
-          <AppText style={styles.buttonsText}>Отмена</AppText>
-        </AppButton>
-        <AppButton
-        style={styles.button}
-          onPress={saveHandler}>
-          <AppText style={styles.buttonsText}>Сохранить</AppText>
-          <FontAwesomeIcon icon={faCheckSquare} size={ THEME.ICON_SIZE }/>
-        </AppButton>
+          <Button
+            title="Отмена"
+            style={styles.button}
+            color={THEME.BUTTON_BACKGROUND_COLOR}
+            onPress={cancelHanlder}
+          />
+          <Button
+            title="Сохранить"
+            style={styles.button}
+            color={THEME.BUTTON_BACKGROUND_COLOR}
+            onPress={saveHandler}
+          />
         </View>
       </View>
     </Modal>
@@ -57,16 +73,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: THEME.BACKGROUND_COLOR,
   },
   header: {
     fontWeight: 'bold',
     fontSize: 24,
     marginBottom: 30,
+    color: THEME.TEXT_COLOR,
   },
   input: {
     padding: 10,
     borderBottomWidth: 2,
-    borderBottomColor: THEME.BORDER_COLOR,
+    borderBottomColor: THEME.INPUT_BORDER_COLOR,
+    color: THEME.TEXT_COLOR,
     width: '80%',
   },
   buttons: {
@@ -81,6 +100,24 @@ const styles = StyleSheet.create({
   },
   buttonsText: {
     fontSize: 15,
-    marginLeft: 10
-  }
+    marginLeft: 10,
+  },
+  sheetPriority: {
+    marginVertical: 10,
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 30,
+    // borderLeftColor: '#fff',
+    // borderLeftWidth: 2,
+    // borderRightColor: '#fff',
+    // borderRightWidth: 2,
+  },
+  sheetPriorityLabel: {
+    width: '50%',
+  },
+  sheetPrioritySwitch: {
+    width: 50,
+  },
 });

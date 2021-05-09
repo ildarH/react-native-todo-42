@@ -23,11 +23,12 @@ export const todoReducer = (state = initialState, action) => {
       return {
         ...state,
         todos: [
-          ...state.todos,
+          
           {
             key: action.key,
             ...action.todo
           },
+          ...state.todos,
         ],
       };
     case DELETE_TODO:

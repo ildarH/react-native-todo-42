@@ -11,6 +11,7 @@ import {
   showError,
   showLoader,
 } from './../../redux/todoActions';
+import {THEME} from '../../theme';
 
 export const MainScreen = () => {
   // const dispatch = useDispatch()
@@ -51,19 +52,19 @@ export const MainScreen = () => {
   }
 
   return (
-    <View style={styles.content}>
+    <View style={styles.wrapper}>
       <AddTodo />
-      <View style={styles.buttons}>
-        <Text>Sorting buttons</Text>
-      </View>
       {loading ? <AppLoading /> : <TodoItems />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  content: {
-    padding: 40,
+  // content: {
+  //   padding: 40,
+  // },
+  buttons: {
+    paddingHorizontal: 40,
   },
   errorContainer: {
     flex: 1,

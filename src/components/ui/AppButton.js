@@ -21,5 +21,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopColor: THEME.BORDER_LIGHT_COLOR,
+    borderRightColor: THEME.BORDER_DARK_COLOR,
+    borderBottomColor: THEME.BORDER_DARK_COLOR,
+    borderLeftColor: THEME.BORDER_LIGHT_COLOR,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
   },
 });

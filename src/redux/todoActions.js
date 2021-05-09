@@ -51,3 +51,7 @@ export const toggleTodo = key => async dispatch => {
   await Http.patch(`todos/${key}.json`);
   dispatch({type: TOGGLE_DONE, payload: key});
 };
+export const togglePriority = key => async dispatch => {
+  await Http.patch(`todos/${key}`);
+  dispatch({type: CHANGE_PRIORITY,})
+}

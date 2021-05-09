@@ -1,5 +1,13 @@
 import React, {useState, createRef} from 'react';
-import {Alert, Keyboard, StyleSheet, TextInput, View} from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  StyleSheet,
+  TextInput,
+  View,
+  Button,
+  Switch,
+} from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faCaretSquareDown} from '@fortawesome/free-solid-svg-icons';
@@ -16,24 +24,27 @@ const actionSheetRef = createRef();
 export const AddTodo = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
-  const [priority, setPriority] = useState('0');
+  const [priority, setPriority] = useState(0);
   const [collection, setCollection] = useState('main');
+  const togglePriority = () => setPriority(previousState => !previousState)
   let actionSheet;
 
   const saveHandler = () => {
     if (text.trim().length > 3) {
       setText('');
+      setPriority(0);
+      actionSheetRef.current?.setModalVisible(false);
       Keyboard.dismiss();
       const todo = {
         date: new Date().toJSON(),
-        text,
+        text: text.trim(),
         done: false,
         collection: collection,
-        priority: priority,
+        priority: !!priority,
       };
       dispatch(addTodo(todo));
     } else {
-      Alert.alert('Название не может быть больше 3-х символов');
+      Alert.alert('Название должно быть больше 3-х символов');
     }
   };
 
@@ -69,10 +80,35 @@ export const AddTodo = () => {
           />
         </AppButton>
       </View>
-      <ActionSheet ref={actionSheetRef} containerStyle={styles.sheetContainer}>
+      <ActionSheet
+        ref={actionSheetRef}
+        containerStyle={styles.sheetContainer}
+        onClose={() => setPriority(0)}>
         <View style={styles.sheet}>
           <AppTextBold style={styles.sheetTitle}>Новое дело</AppTextBold>
-          <View><AppText>Выбрать приоритет</AppText></View>
+          <View style={styles.sheetPriority}>
+            <View style={styles.sheetPriorityLabel}>
+              {priority ? (
+                <AppText>Высокий приоритет</AppText>
+              ) : (
+                <AppText>Обычный приоритет</AppText>
+              )}
+            </View>
+            <View style={styles.sheetPrioritySwitch}>
+              <Switch
+                trackColor={{
+                  false: THEME.LOW_PRIORITY_COLOR,
+                  true: THEME.HIGH_PRIORITY_COLOR,
+                }}
+                thumbColor={
+                  priority ? THEME.HIGH_PRIORITY_COLOR : THEME.LOW_PRIORITY_COLOR
+                }
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={togglePriority}
+                value={priority}
+              />
+            </View>
+          </View>
           <View style={styles.sheetInputContainer}>
             <TextInput
               style={styles.sheetInput}
@@ -82,16 +118,14 @@ export const AddTodo = () => {
               value={text}
               maxLength={128}
             />
-            <AppButton
+          </View>
+          <View style={styles.sheetButtonsContainer}>
+            <Button
               onPress={saveHandler}
-              color={THEME.BUTTON_BACKGROUND_COLOR}>
-              <FontAwesomeIcon
-                icon={faPlus}
-                style={styles.icon}
-                size={THEME.ICON_SIZE}
-                color={THEME.TEXT_COLOR}
-              />
-            </AppButton>
+              title="Добавить"
+              style={styles.sheetButton}
+              color={THEME.BUTTON_BACKGROUND_COLOR}
+            />
           </View>
         </View>
       </ActionSheet>
@@ -101,14 +135,18 @@ export const AddTodo = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+    paddingVertical: 20,
+    borderTopColor: THEME.BORDER_DARK_COLOR,
+    borderBottomColor: THEME.BORDER_LIGHT_COLOR,
+    borderTopWidth: 2,
+    borderBottomWidth: 1,
   },
   inputWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 40,
     width: '100%',
   },
   input: {
@@ -118,16 +156,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: THEME.BORDER_COLOR,
     color: THEME.TEXT_COLOR,
-    width: '80%',
+    width: '75%',
   },
   icon: {
     alignSelf: 'center',
   },
   sheetContainer: {
-    flexDirection:'column',
     backgroundColor: THEME.SHEET_BACKGROUND_COLOR,
     alignItems: 'center',
-    justifyContent:'space-between'
+    justifyContent: 'space-evenly',
+    alignContent: 'space-between',
   },
   sheet: {
     justifyContent: 'space-around',
@@ -142,18 +180,54 @@ const styles = StyleSheet.create({
     color: THEME.TEXT_COLOR,
     fontSize: 20,
     textAlign: 'center',
-    marginVertical: 10
+    marginVertical: 10,
+  },
+  sheetPriority: {
+    marginVertical: 10,
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 30,
+    // borderLeftColor: '#fff',
+    // borderLeftWidth: 2,
+    // borderRightColor: '#fff',
+    // borderRightWidth: 2,
+  },
+  sheetPriorityLabel: {
+    width: '50%',
+  },
+  sheetPrioritySwitch: {
+    width: 50,
   },
   sheetInputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   sheetInput: {
-    width: '70%',
+    width: '90%',
+    marginVertical: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
     color: THEME.TEXT_COLOR,
     borderBottomWidth: 1,
     borderBottomColor: THEME.BORDER_COLOR,
-  }
+  },
+  sheetButtonsContainer: {
+    // width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    // borderLeftColor: '#fff',
+    // borderLeftWidth: 2,
+    // borderRightColor: '#fff',
+    // borderRightWidth: 2,
+  },
+  sheetButton: {
+    // alignSelf: 'center',
+    fontSize: 20,
+  },
 });

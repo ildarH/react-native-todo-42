@@ -37,6 +37,8 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
         visible={modal}
         onCancel={() => setModal(false)}
         text={item.text}
+        priority={item.priority}
+        collection={item.collection}
         onSave={saveHandler}
       />
 
@@ -105,13 +107,19 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 10,
     alignSelf: 'flex-start',
-    borderColor: THEME.BORDER_COLOR,
-    borderWidth: 1,
+    borderLeftColor: THEME.BORDER_LEFT_COLOR,
+    borderTopColor: THEME.BORDER_TOP_COLOR,
+    borderBottomColor: THEME.BORDER_BOTTOM_COLOR,
+    borderRightColor: THEME.BORDER_RIGHT_COLOR,
+    borderTopWidth: 2,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 2,
     borderStyle: 'solid',
     borderRadius: 10,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    backgroundColor: THEME.ITEM_BACKGROUND_COLOR
+    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
   },
   checkbox: {
     width: '5%',
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     color: THEME.TEXT_COLOR,
-    
   },
   buttons: {
     flexDirection: 'row',
