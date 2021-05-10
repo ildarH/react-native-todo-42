@@ -27,8 +27,7 @@ export const AddTodo = () => {
   const [priority, setPriority] = useState(0);
   const [collection, setCollection] = useState('main');
   const togglePriority = () => setPriority(previousState => !previousState)
-  let actionSheet;
-
+  
   const saveHandler = () => {
     if (text.trim().length > 3) {
       setText('');

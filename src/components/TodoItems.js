@@ -2,10 +2,6 @@ import React, {useState, useMemo} from 'react';
 import {View, FlatList, StyleSheet, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  faSortAlphaDown,
-  faSortAlphaDownAlt,
-  faSortNumericDown,
-  faSortNumericDownAlt,
   faSortDown as ascending,
   faSortUp as descending,
   faSort
@@ -16,7 +12,7 @@ import {AppButton} from './ui/AppButton';
 import {TodoItem} from './TodoItem';
 import {THEME} from './../theme';
 
-export const useSortableData = (items, config = null) => {
+export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
   
   const sortedItems = useMemo(() => {
@@ -53,18 +49,8 @@ export const useSortableData = (items, config = null) => {
 
 export const TodoItems = () => {
   const dispatch = useDispatch();
-  const [sortAlpha, setSortAlpha] = useState(1);
-  const [sortPriority, setSortPriority] = useState(0);
   const todos = useSelector(state => state.todo.todos);
-  console.log('todos: ', todos);
-  // const sortArrayPriorityAsc = arr =>
-  //   arr.sort((a, b) => b.priority - a.priority || a.text.localeCompare(b.text));
-  // const sortArrayPriorityDesc = arr =>
-  //   arr.sort((a, b) => a.priority - b.priority || b.text.localeCompare(a.text));
-
-  // requestSort('priority')
-
-  const {sortedTodos, requestSort, sortConfig} = useSortableData(todos);
+  const {sortedTodos, requestSort, sortConfig} = useSortData(todos);
   const getIconNamesFor = name => {
     if (!sortConfig) {
       return;
