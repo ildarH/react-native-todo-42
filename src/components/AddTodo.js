@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderTopColor: THEME.BORDER_DARK_COLOR,
     borderBottomColor: THEME.BORDER_LIGHT_COLOR,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
   },
   inputWrapper: {

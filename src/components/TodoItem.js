@@ -33,7 +33,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
       `Вы уверены, что хотите удалить "${item.text}"?`,
       [
         {text: 'Отмена', style: 'cancel'},
-        {text: 'Удалить', style: 'destructive', onPress: onDelete(key)},
+        {text: 'Удалить', style: 'destructive', onPress: () => onDelete(key)},
       ],
       {cancelable: true},
     );
@@ -82,7 +82,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
             />
           </AppButton>
           <AppButton
-            onPress={deleteHandler}
+            onPress={() => deleteHandler(item.key)}
             color={THEME.BUTTON_BACKGROUND_COLOR}>
             <FontAwesomeIcon
               icon={faTrash}

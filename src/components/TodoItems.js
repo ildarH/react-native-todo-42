@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   faSortDown as ascending,
   faSortUp as descending,
-  faSort
+  faSort,
+  faFilter,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
@@ -15,10 +16,10 @@ import {THEME} from './../theme';
 
 export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
-  
+
   const sortedItems = useMemo(() => {
     let sortableItems = [...items];
-    
+
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -30,10 +31,10 @@ export const useSortData = (items, config = null) => {
         return 0;
       });
     }
-    
+
     return sortableItems;
   }, [items, sortConfig]);
-  
+
   const requestSort = key => {
     let direction = 'ascending';
     if (
@@ -49,8 +50,16 @@ export const useSortData = (items, config = null) => {
 };
 
 export const TodoItems = () => {
+  const [filter, setFilter] = useState(false);
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todo.todos);
+  // const filteredTodos = filter
+  //   ? todos.map(todo => {
+  //       if (todo.done === filter) {
+  //         return todo
+  //       }
+  //     })
+  //   : todos;
   const {sortedTodos, requestSort, sortConfig} = useSortData(todos);
   const getIconNamesFor = name => {
     if (!sortConfig) {
@@ -77,7 +86,7 @@ export const TodoItems = () => {
     dispatch(updateTodo(key, updatedTodo));
   };
   const toggleHandler = (key, done) => {
-    dispatch(toggleTodo(key, done))
+    dispatch(toggleTodo(key, done));
   };
 
   return (
@@ -93,11 +102,18 @@ export const TodoItems = () => {
         </AppButton>
         <AppText style={styles.textShaded}>Приоритет:</AppText>
         <AppButton onPress={() => requestSort('priority')}>
-            <FontAwesomeIcon
-              icon={getIconNamesFor('priority') || faSort}
-              size={THEME.ICON_SIZE}
-              color={THEME.TEXT_COLOR}
-            />
+          <FontAwesomeIcon
+            icon={getIconNamesFor('priority') || faSort}
+            size={THEME.ICON_SIZE}
+            color={THEME.TEXT_COLOR}
+          />
+        </AppButton>
+        <AppButton onPress={() => setFilter(!filter)}>
+          <FontAwesomeIcon
+            icon={faFilter}
+            size={THEME.ICON_SIZE}
+            color={THEME.TEXT_COLOR}
+          />
         </AppButton>
       </View>
       <FlatList
@@ -138,6 +154,6 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
   },
   textShaded: {
-    color: THEME.TEXT_SHADED
-  }
+    color: THEME.TEXT_SHADED,
+  },
 });
