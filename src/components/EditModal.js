@@ -4,15 +4,21 @@ import {THEME} from '../theme';
 import {AppText} from './ui/AppText';
 import {AppTextBold} from './ui/AppTextBold';
 
-export const EditModal = ({visible, onCancel, text, priority, onSave}) => {
+export const EditModal = ({visible, onCancel, text, priority, collection, onSave}) => {
   const [title, setTitle] = useState(text);
   const [order, setOrder] = useState(priority);
+  const [category, setCategory] = useState(collection);
   const toggleOrder = () => setOrder(previousState => !previousState);
   const saveHandler = () => {
     if (title.trim().length < 3) {
       Alert.alert('Ошибка', 'Минимальная длина 3 символа.');
     } else {
-      onSave(title);
+      const updatedTodo = {
+        text: title,
+        priority: order,
+        collection: category
+      }
+      onSave(updatedTodo);
     }
   };
   const cancelHanlder = () => {

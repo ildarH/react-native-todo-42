@@ -9,6 +9,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
 import {AppButton} from './ui/AppButton';
+import {AppText} from './ui/AppText';
 import {TodoItem} from './TodoItem';
 import {THEME} from './../theme';
 
@@ -66,23 +67,23 @@ export const TodoItems = () => {
     // return sortConfig.key === name ? sortConfig.direction : undefined;
   };
 
-  console.log('todoItems sorted: ', sortedTodos);
-  console.log('todoItems sortConfig: ', sortConfig);
+  // console.log('todoItems sorted: ', sortedTodos);
+  // console.log('todoItems sortConfig: ', sortConfig);
 
   const deleteHandler = key => {
     dispatch(deleteTodo(key));
   };
-  const updateHandler = (key, text) => {
-    dispatch(updateTodo(key, text));
+  const updateHandler = (key, updatedTodo) => {
+    dispatch(updateTodo(key, updatedTodo));
   };
-  const toggleHandler = () => {
-    console.log('toggleTodo');
+  const toggleHandler = (key, done) => {
+    dispatch(toggleTodo(key, done))
   };
 
   return (
     <View style={styles.list}>
       <View style={styles.sortButtons}>
-        <Text>Алфавит:</Text>
+        <AppText style={styles.textShaded}>Алфавит:</AppText>
         <AppButton onPress={() => requestSort('text')}>
           <FontAwesomeIcon
             icon={getIconNamesFor('text') || faSort}
@@ -90,7 +91,7 @@ export const TodoItems = () => {
             color={THEME.TEXT_COLOR}
           />
         </AppButton>
-        <Text>Приоритет:</Text>
+        <AppText style={styles.textShaded}>Приоритет:</AppText>
         <AppButton onPress={() => requestSort('priority')}>
             <FontAwesomeIcon
               icon={getIconNamesFor('priority') || faSort}
@@ -123,5 +124,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderTopColor: THEME.BORDER_LIGHT_COLOR,
+    borderRightColor: THEME.BORDER_DARK_COLOR,
+    borderBottomColor: THEME.BORDER_DARK_COLOR,
+    borderLeftColor: THEME.BORDER_LIGHT_COLOR,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
   },
+  textShaded: {
+    color: THEME.TEXT_SHADED
+  }
 });

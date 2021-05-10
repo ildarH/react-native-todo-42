@@ -9,12 +9,22 @@ import {faCircle, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
   const [modal, setModal] = useState(false);
+  const [toggleCheckBox, setToggleCheckBox] = useState(item.done);
+  // console.log('TodoItem item: ', item);
+  // console.log('TodoItem toggleCheckBox: ', toggleCheckBox);
 
   const priority = item.priority ? item.priority : '';
 
-  const saveHandler = text => {
-    onSave(item.key, text);
+  const saveHandler = todo => {
+    const {key, ...updatedItem} = item;
+    const updatedTodo = {...updatedItem, ...todo};
+    onSave(item.key, updatedTodo);
     setModal(false);
+  };
+
+  const checkboxHandler = key => {
+    onToggle(key, !toggleCheckBox);
+    setToggleCheckBox(!toggleCheckBox);
   };
 
   const deleteHandler = key => {
@@ -30,9 +40,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onLongPress={() => deleteHandler}>
+    <View style={styles.container}>
       <EditModal
         visible={modal}
         onCancel={() => setModal(false)}
@@ -54,11 +62,12 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
       ) : (
         <View style={styles.iconContainer} />
       )}
-      <View style={styles.listContainer}>
+      <TouchableOpacity style={[styles.listContainer, toggleCheckBox ? styles.listContainerDone : null]}>
         <CheckBox
           style={styles.checkbox}
-          checked={item.done}
-          onValueChange={onToggle}
+          disabled={false}
+          value={toggleCheckBox}
+          onValueChange={() => checkboxHandler(item.key)}
         />
 
         <Text style={styles.item}>{item.text}</Text>
@@ -82,8 +91,8 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
             />
           </AppButton>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -107,10 +116,10 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 10,
     alignSelf: 'flex-start',
-    borderLeftColor: THEME.BORDER_LEFT_COLOR,
-    borderTopColor: THEME.BORDER_TOP_COLOR,
-    borderBottomColor: THEME.BORDER_BOTTOM_COLOR,
-    borderRightColor: THEME.BORDER_RIGHT_COLOR,
+    borderTopColor: THEME.BORDER_DARK_COLOR,
+    borderRightColor: THEME.BORDER_LIGHT_COLOR,
+    borderBottomColor: THEME.BORDER_LIGHT_COLOR,
+    borderLeftColor: THEME.BORDER_DARK_COLOR,
     borderTopWidth: 2,
     borderRightWidth: 1,
     borderBottomWidth: 1,
@@ -120,6 +129,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+  },
+  listContainerDone: {
+    backgroundColor: THEME.ITEM_DONE_BACKGROUND_COLOR
   },
   checkbox: {
     width: '5%',

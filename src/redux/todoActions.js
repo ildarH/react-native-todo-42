@@ -30,9 +30,9 @@ export const fetchAllTodos = () => async dispatch => {
     showError(error);
   }
 };
-export const updateTodo = (key, text) => async dispatch => {
-  await Http.patch(`todos/${key}.json`, {text});
-  dispatch({type: UPDATE_TODO, key, text});
+export const updateTodo = (key, updatedTodo) => async dispatch => {
+  await Http.patch(`todos/${key}.json`, { ...updatedTodo });
+  dispatch({type: UPDATE_TODO, key, payload: updatedTodo});
 };
 export const showLoader = () => async dispatch => {
   await dispatch({type: SHOW_LOADER});
@@ -41,17 +41,16 @@ export const hideLoader = () => async dispatch => {
   await dispatch({type: HIDE_LOADER});
 };
 export const showError = error => async dispatch => {
-  console.log('showError: ', error);
   await dispatch({type: SHOW_ERROR, error});
 };
 export const hideError = () => async dispatch => {
   await dispatch({type: HIDE_ERROR});
 };
-export const toggleTodo = key => async dispatch => {
-  await Http.patch(`todos/${key}.json`);
+export const toggleTodo = (key, done) => async dispatch => {
+  await Http.patch(`todos/${key}.json`, {done});
   dispatch({type: TOGGLE_DONE, payload: key});
 };
-export const togglePriority = key => async dispatch => {
-  await Http.patch(`todos/${key}`);
-  dispatch({type: CHANGE_PRIORITY,})
+export const togglePriority = (key, priority) => async dispatch => {
+  await Http.patch(`todos/${key}`, {priority});
+  dispatch({type: CHANGE_PRIORITY, payload: priority})
 }

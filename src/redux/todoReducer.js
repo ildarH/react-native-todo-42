@@ -38,7 +38,8 @@ export const todoReducer = (state = initialState, action) => {
         ...state,
         todos: state.todos.map((todo) => {
           if (todo.key === action.key) {
-            todo.text = action.text;
+            todo = { ...action.payload}
+            todo.key = action.key
           }
           return todo;
         }),
@@ -58,7 +59,7 @@ export const todoReducer = (state = initialState, action) => {
       return {
         ...state,
         todos: state.todos.map((todo) => {
-          if (todo.key === action.payload) {
+          if (todo.key === action.key) {
             todo.done = !todo.done;
           }
           return todo;

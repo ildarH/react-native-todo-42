@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: THEME.BORDER_COLOR,
+    borderBottomColor: THEME.INPUT_BORDER_COLOR,
     color: THEME.TEXT_COLOR,
     width: '75%',
   },
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     color: THEME.TEXT_COLOR,
     borderBottomWidth: 1,
-    borderBottomColor: THEME.BORDER_COLOR,
+    borderBottomColor: THEME.INPUT_BORDER_COLOR,
   },
   sheetButtonsContainer: {
     // width: '90%',
