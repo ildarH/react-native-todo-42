@@ -13,7 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faCaretSquareDown} from '@fortawesome/free-solid-svg-icons';
 import {AppText} from './ui/AppText';
 import {AppButton} from './ui/AppButton';
-import {THEME} from '../theme';
+import {THEME} from './../theme/theme';
 
 import {useDispatch} from 'react-redux';
 import {addTodo} from '../redux/todoActions';

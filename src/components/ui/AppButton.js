@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import { THEME } from '../../theme';
+import { THEME } from './../../theme/theme';
 import {AppText} from './AppText';
 
 export const AppButton = ({children, onPress, color = THEME.BUTTON_BACKGROUND_COLOR}) => {

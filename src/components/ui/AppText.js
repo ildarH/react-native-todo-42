@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
-import { THEME } from '../../theme';
+import { THEME } from './../../theme/theme';
 
 export const AppText = props => (
   <Text style={{...styles.default, ...props.style}}>{props.children}</Text>

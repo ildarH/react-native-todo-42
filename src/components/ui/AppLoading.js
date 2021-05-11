@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { THEME } from '../../theme';
+import { THEME } from './../../theme/theme';
 
 export const AppLoading = () => (
   <View style={styles.center}>

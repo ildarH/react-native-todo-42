@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Modal, Alert, Button, Switch} from 'react-native';
-import {THEME} from '../theme';
+import {THEME} from './../theme/theme';
 import {AppText} from './ui/AppText';
 import {AppTextBold} from './ui/AppTextBold';
 

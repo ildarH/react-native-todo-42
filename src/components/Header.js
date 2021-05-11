@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { THEME } from '../theme';
+import { THEME } from './../theme/theme';
 import { AppTextBold } from './ui/AppTextBold';
 
 export const Header = ({ title }) => {

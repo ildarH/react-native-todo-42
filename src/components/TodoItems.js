@@ -5,14 +5,16 @@ import {
   faSortDown as ascending,
   faSortUp as descending,
   faSort,
-  faFilter,
+  faFilter as filterIcon,
+  faSquare as emptyCheckIcon,
+  faCheckSquare as fullCheckIcon,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
 import {AppButton} from './ui/AppButton';
 import {AppText} from './ui/AppText';
 import {TodoItem} from './TodoItem';
-import {THEME} from './../theme';
+import {THEME} from './../theme/theme';
 
 export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
@@ -49,35 +51,71 @@ export const useSortData = (items, config = null) => {
   return {sortedTodos: sortedItems, requestSort, sortConfig};
 };
 
+const filterTodo = (todos, filter) => {
+  console.log('function, todos & filter', todos, filter);
+  let filteredList = [];
+  if (filter === 'all') {
+    filteredList = todos;
+  } else if (filter === 'done') {
+    filteredList = todos.filter(todo => todo.done);
+  } else if (filter === 'undone') {
+    filteredList = todos.filter(todo => !todo.done);
+  }
+  return filteredList;
+};
+
 export const TodoItems = () => {
-  const [filter, setFilter] = useState(false);
+  const [disableFilter, setDisableFilter] = useState(false);
+  const [doneFilter, setDoneFilter] = useState(false);
+  const [undoneFilter, setUndoneFilter] = useState(true);
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todo.todos);
-  // const filteredTodos = filter
-  //   ? todos.map(todo => {
-  //       if (todo.done === filter) {
-  //         return todo
-  //       }
-  //     })
-  //   : todos;
+
+  const filteringOption = disableFilter
+    ? 'all'
+    : doneFilter
+    ? 'done'
+    : 'undone';
+  
+  console.log('filteringOption: ', filteringOption);
+
+  const getIconNamesForFilter = filter => {
+    switch (filter) {
+      case 'all':
+        // setDisableFilter(() => true)
+        // setDoneFilter(() =>false)
+        // setUndoneFilter(() =>false)
+        return filterIcon;
+      case 'done':
+      //   setDisableFilter(false)
+      //   setDoneFilter(true)
+      //   setUndoneFilter(false)
+        return fullCheckIcon;
+      case 'undone':
+      //   setDisableFilter(false)
+      //   setDoneFilter(false)
+      //   setUndoneFilter(true)
+        return emptyCheckIcon;
+      default:
+        return undefined;
+    }
+  };
+
+  console.log('todos: ', todos); //!
+  // const filteredTodos = filterTodo(todos, filteringOption);
+  // console.log('filteredTodos: ', filteredTodos); //!
+
   const {sortedTodos, requestSort, sortConfig} = useSortData(todos);
-  const getIconNamesFor = name => {
+  const getIconNamesForSort = name => {
     if (!sortConfig) {
       return;
     }
     if (sortConfig.key === name) {
-      if (sortConfig.direction === 'descending') {
-        return descending;
-      } else {
-        return ascending;
-      }
+      return sortConfig.direction === 'descending' ? descending : ascending;
     }
-    return undefined;
-    // return sortConfig.key === name ? sortConfig.direction : undefined;
-  };
 
-  // console.log('todoItems sorted: ', sortedTodos);
-  // console.log('todoItems sortConfig: ', sortConfig);
+    return undefined;
+  };
 
   const deleteHandler = key => {
     dispatch(deleteTodo(key));
@@ -95,7 +133,7 @@ export const TodoItems = () => {
         <AppText style={styles.textShaded}>Алфавит:</AppText>
         <AppButton onPress={() => requestSort('text')}>
           <FontAwesomeIcon
-            icon={getIconNamesFor('text') || faSort}
+            icon={getIconNamesForSort('text') || faSort}
             size={THEME.ICON_SIZE}
             color={THEME.TEXT_COLOR}
           />
@@ -103,14 +141,14 @@ export const TodoItems = () => {
         <AppText style={styles.textShaded}>Приоритет:</AppText>
         <AppButton onPress={() => requestSort('priority')}>
           <FontAwesomeIcon
-            icon={getIconNamesFor('priority') || faSort}
+            icon={getIconNamesForSort('priority') || faSort}
             size={THEME.ICON_SIZE}
             color={THEME.TEXT_COLOR}
           />
         </AppButton>
-        <AppButton onPress={() => setFilter(!filter)}>
+        <AppButton>
           <FontAwesomeIcon
-            icon={faFilter}
+            icon={getIconNamesForFilter(filteringOption) || filterIcon}
             size={THEME.ICON_SIZE}
             color={THEME.TEXT_COLOR}
           />

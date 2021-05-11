@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View, Alert} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {EditModal} from './EditModal';
-import {THEME} from '../theme';
+import {THEME} from './../theme/theme';
 import {AppButton} from './ui/AppButton';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
@@ -67,6 +67,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
           style={styles.checkbox}
           disabled={false}
           value={toggleCheckBox}
+          tintColors={{true: THEME.HIGH_PRIORITY_COLOR}}
           onValueChange={() => checkboxHandler(item.key)}
         />
 
