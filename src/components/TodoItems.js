@@ -14,8 +14,8 @@ import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
 import {AppButton} from './ui';
 import {AppText} from './ui';
 import {TodoItem} from './TodoItem';
-import { ICON, TEXT } from './../theme';
-import {styles} from './TodoItemsStyle'
+import {ICON, TEXT} from './../theme';
+import {styles} from './TodoItemsStyle';
 
 export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
@@ -77,7 +77,7 @@ export const TodoItems = () => {
     : doneFilter
     ? 'done'
     : 'undone';
-  
+
   console.log('filteringOption: ', filteringOption);
 
   const getIconNamesForFilter = filter => {
@@ -88,14 +88,14 @@ export const TodoItems = () => {
         // setUndoneFilter(() =>false)
         return filterIcon;
       case 'done':
-      //   setDisableFilter(false)
-      //   setDoneFilter(true)
-      //   setUndoneFilter(false)
+        //   setDisableFilter(false)
+        //   setDoneFilter(true)
+        //   setUndoneFilter(false)
         return fullCheckIcon;
       case 'undone':
-      //   setDisableFilter(false)
-      //   setDoneFilter(false)
-      //   setUndoneFilter(true)
+        //   setDisableFilter(false)
+        //   setDoneFilter(false)
+        //   setUndoneFilter(true)
         return emptyCheckIcon;
       default:
         return undefined;
