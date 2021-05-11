@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {BUTTON, COLOR, LIST, TEXT} from './../theme';
 
 export const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
     paddingVertical: 20,
     borderTopColor: BUTTON.BORDER_DARK_COLOR,
@@ -11,6 +11,12 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
   },
+  wrapper: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+
   inputWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -60,6 +66,24 @@ export const styles = StyleSheet.create({
   },
   sheetPrioritySwitch: {
     width: 50,
+  },
+  dropDownWrapper: {
+    // width: '100%',
+    // alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // alignItems: 'center'
+    // backgroundColor: '#FFFFFF'
+  },
+  dropDown: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    backgroundColor: COLOR.BACKGROUND,
+    width: '50%',
+    borderColor: BUTTON.BORDER_DARK_COLOR,
+    borderWidth: 1,
+    borderRadius: 4,
+    color: TEXT.COLOR
   },
   sheetInputContainer: {
     flexDirection: 'row',

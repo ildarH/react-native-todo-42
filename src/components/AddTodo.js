@@ -6,17 +6,19 @@ import {
   View,
   Button,
   Switch,
+  Text,
 } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faCaretSquareDown} from '@fortawesome/free-solid-svg-icons';
+import ModalDropdown from 'react-native-modal-dropdown';
 import {AppText} from './ui';
 import {AppTextBold} from './ui';
 import {AppButton} from './ui';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addTodo} from './../redux/todoActions';
-import {styles} from './AddTodoStyle'
+import {styles} from './AddTodoStyle';
 import {BUTTON, COLOR, ICON, TEXT} from './../theme';
 
 const actionSheetRef = createRef();
@@ -26,8 +28,10 @@ export const AddTodo = () => {
   const [text, setText] = useState('');
   const [priority, setPriority] = useState(0);
   const [collection, setCollection] = useState('main');
-  const togglePriority = () => setPriority(previousState => !previousState)
-  
+  const togglePriority = () => setPriority(previousState => !previousState);
+  const collectionOptions = useSelector(state => state.todo.collections);
+  console.log({collectionOptions});
+
   const saveHandler = () => {
     if (text.trim().length > 3) {
       setText('');
@@ -48,36 +52,38 @@ export const AddTodo = () => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.inputWrapper}>
-        <TextInput
-          style={styles.input}
-          placeholder="Новое дело..."
-          placeholderTextColor={TEXT.PLACEHOLDER_COLOR}
-          onChangeText={setText}
-          value={text}
-          maxLength={128}
-        />
-        <AppButton
-          onPress={() => {
-            actionSheetRef.current?.setModalVisible();
-          }}
-          color={BUTTON.BACKGROUND_COLOR}>
-          <FontAwesomeIcon
-            icon={faCaretSquareDown}
-            style={styles.icon}
-            size={ICON.SIZE}
-            color={TEXT.COLOR}
+    <View style={styles.container}>
+      <View style={styles.wrapper}>
+        <View style={styles.inputWrapper}>
+          <TextInput
+            style={styles.input}
+            placeholder="Новое дело..."
+            placeholderTextColor={TEXT.PLACEHOLDER_COLOR}
+            onChangeText={setText}
+            value={text}
+            maxLength={128}
           />
-        </AppButton>
-        <AppButton onPress={saveHandler} color={BUTTON.BACKGROUND_COLOR}>
-          <FontAwesomeIcon
-            icon={faPlus}
-            style={styles.icon}
-            size={ICON.SIZE}
-            color={TEXT.COLOR}
-          />
-        </AppButton>
+          <AppButton
+            onPress={() => {
+              actionSheetRef.current?.setModalVisible();
+            }}
+            color={BUTTON.BACKGROUND_COLOR}>
+            <FontAwesomeIcon
+              icon={faCaretSquareDown}
+              style={styles.icon}
+              size={ICON.SIZE}
+              color={TEXT.COLOR}
+            />
+          </AppButton>
+          <AppButton onPress={saveHandler} color={BUTTON.BACKGROUND_COLOR}>
+            <FontAwesomeIcon
+              icon={faPlus}
+              style={styles.icon}
+              size={ICON.SIZE}
+              color={TEXT.COLOR}
+            />
+          </AppButton>
+        </View>
       </View>
       <ActionSheet
         ref={actionSheetRef}
@@ -99,15 +105,21 @@ export const AddTodo = () => {
                   false: COLOR.LOW_PRIORITY,
                   true: COLOR.HIGH_PRIORITY,
                 }}
-                thumbColor={
-                  priority ? COLOR.HIGH_PRIORITY : COLOR.LOW_PRIORITY
-                }
+                thumbColor={priority ? COLOR.HIGH_PRIORITY : COLOR.LOW_PRIORITY}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={togglePriority}
                 value={priority}
               />
             </View>
           </View>
+          <View style={styles.dropDownWrapper}>
+              <ModalDropdown
+                defaultValue="main"
+                style={styles.dropDown}
+                options={collectionOptions}
+                onSelect={value => setCollection(collectionOptions[value])}
+              />
+            </View>
           <View style={styles.sheetInputContainer}>
             <TextInput
               style={styles.sheetInput}
@@ -131,5 +143,3 @@ export const AddTodo = () => {
     </View>
   );
 };
-
-

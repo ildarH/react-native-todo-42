@@ -76,7 +76,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
           onValueChange={() => checkboxHandler(item.key)}
         />
 
-        <Text style={styles.item}>{item.text}</Text>
+        <Text style={styles.item}>{item.text} - {item.collection}</Text>
         <View style={styles.buttons}>
           <AppButton
             onPress={() => setModal(true)}

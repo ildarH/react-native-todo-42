@@ -120,14 +120,18 @@ export const reducer = (state = initialState, action) => {
       return newState;
     }
     case FETCH_COLLECTION: {
-      const oldCollections = [...state.collections]
-      const collectionsFromTodos = [...new Set(state.todos.map(item => item.collection))]
-      const concated = [...new Set([...oldCollections, ...collectionsFromTodos])]
+      const oldCollections = [...state.collections];
+      const collectionsFromTodos = [
+        ...new Set(state.todos.map(item => item.collection)),
+      ];
+      const concated = [
+        ...new Set([...oldCollections, ...collectionsFromTodos]),
+      ];
       const newState = {
         ...state,
-        collections: [...concated]
-      }
-      return newState
+        collections: [...concated],
+      };
+      return newState;
     }
     case ADD_COLLECTION: {
       console.log('ADD COLLECTION state before: ', state);
