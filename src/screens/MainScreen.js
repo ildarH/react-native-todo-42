@@ -8,12 +8,12 @@ import {
   Keyboard,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppLoading} from './../ui/AppLoading';
-import {Header} from './../Header';
-import {AddTodo} from './../AddTodo';
-import {TodoItems} from './../TodoItems';
-import {fetchAllTodos} from './../../redux/todoActions';
-import {THEME} from '../../theme/theme';
+import {AppLoading} from './../components/ui';
+import {Header} from './../components/Header';
+import {AddTodo} from './../components/AddTodo';
+import {TodoItems} from './../components/TodoItems';
+import {fetchAllTodos} from './../redux/todoActions';
+import { COLOR } from './../theme';
 
 export const MainScreen = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export const MainScreen = () => {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorContent}>{error}</Text>
-        <Button title="Reload" onPress={fetchAllTodos()} />
+        <Button title="Reload" onPress={() => fetchAllTodos()} />
       </View>
     );
   }
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    backgroundColor: THEME.BACKGROUND_COLOR,
+    backgroundColor: COLOR.BACKGROUND,
   },
 });

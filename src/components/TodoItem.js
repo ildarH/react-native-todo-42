@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View, Alert} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {EditModal} from './EditModal';
-import {THEME} from './../theme/theme';
-import {AppButton} from './ui/AppButton';
+import {AppButton} from './ui';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { BUTTON, COLOR, ICON, LIST, TEXT } from './../theme';
 
 export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
   const [modal, setModal] = useState(false);
@@ -56,7 +56,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
             style={styles.icon}
             icon={faCircle}
             size={10}
-            color={THEME.HIGH_PRIORITY_COLOR}
+            color={COLOR.HIGH_PRIORITY}
           />
         </View>
       ) : (
@@ -67,7 +67,7 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
           style={styles.checkbox}
           disabled={false}
           value={toggleCheckBox}
-          tintColors={{true: THEME.HIGH_PRIORITY_COLOR}}
+          tintColors={{true: COLOR.HIGH_PRIORITY}}
           onValueChange={() => checkboxHandler(item.key)}
         />
 
@@ -75,20 +75,20 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
         <View style={styles.buttons}>
           <AppButton
             onPress={() => setModal(true)}
-            color={THEME.BUTTON_BACKGROUND_COLOR}>
+            color={BUTTON.BACKGROUND_COLOR}>
             <FontAwesomeIcon
               icon={faEdit}
-              color={THEME.ICON_COLOR}
-              size={THEME.ICON_SIZE}
+              color={ICON.COLOR}
+              size={ICON.SIZE}
             />
           </AppButton>
           <AppButton
             onPress={() => deleteHandler(item.key)}
-            color={THEME.BUTTON_BACKGROUND_COLOR}>
+            color={BUTTON.BACKGROUND_COLOR}>
             <FontAwesomeIcon
               icon={faTrash}
-              color={THEME.ICON_COLOR}
-              size={THEME.ICON_SIZE}
+              color={ICON.COLOR}
+              size={ICON.SIZE}
             />
           </AppButton>
         </View>
@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 10,
     alignSelf: 'flex-start',
-    borderTopColor: THEME.BORDER_DARK_COLOR,
-    borderRightColor: THEME.BORDER_LIGHT_COLOR,
-    borderBottomColor: THEME.BORDER_LIGHT_COLOR,
-    borderLeftColor: THEME.BORDER_DARK_COLOR,
+    borderTopColor: BUTTON.BORDER_DARK_COLOR,
+    borderRightColor: BUTTON.BORDER_LIGHT_COLOR,
+    borderBottomColor: BUTTON.BORDER_LIGHT_COLOR,
+    borderLeftColor: BUTTON.BORDER_DARK_COLOR,
     borderTopWidth: 2,
     borderRightWidth: 1,
     borderBottomWidth: 1,
@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
   },
   listContainerDone: {
-    backgroundColor: THEME.ITEM_DONE_BACKGROUND_COLOR
+    backgroundColor: LIST.ITEM_DONE_BACKGROUND_COLOR
   },
   checkbox: {
     width: '5%',
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   item: {
     width: '50%',
     alignSelf: 'center',
-    color: THEME.TEXT_COLOR,
+    color: TEXT.COLOR,
   },
   buttons: {
     flexDirection: 'row',

@@ -11,13 +11,13 @@ import {
 import ActionSheet from 'react-native-actions-sheet';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus, faCaretSquareDown} from '@fortawesome/free-solid-svg-icons';
-import {AppText} from './ui/AppText';
-import {AppButton} from './ui/AppButton';
-import {THEME} from './../theme/theme';
+import {AppText} from './ui';
+import {AppTextBold} from './ui';
+import {AppButton} from './ui';
 
 import {useDispatch} from 'react-redux';
-import {addTodo} from '../redux/todoActions';
-import {AppTextBold} from './ui/AppTextBold';
+import {addTodo} from './../redux/todoActions';
+import { BUTTON, COLOR, ICON, LIST, TEXT } from './../theme';
 
 const actionSheetRef = createRef();
 
@@ -53,7 +53,7 @@ export const AddTodo = () => {
         <TextInput
           style={styles.input}
           placeholder="Новое дело..."
-          placeholderTextColor={THEME.TEXT_PLACEHOLDER_COLOR}
+          placeholderTextColor={TEXT.PLACEHOLDER_COLOR}
           onChangeText={setText}
           value={text}
           maxLength={128}
@@ -62,20 +62,20 @@ export const AddTodo = () => {
           onPress={() => {
             actionSheetRef.current?.setModalVisible();
           }}
-          color={THEME.BUTTON_BACKGROUND_COLOR}>
+          color={BUTTON.BACKGROUND_COLOR}>
           <FontAwesomeIcon
             icon={faCaretSquareDown}
             style={styles.icon}
-            size={THEME.ICON_SIZE}
-            color={THEME.TEXT_COLOR}
+            size={ICON.SIZE}
+            color={TEXT.COLOR}
           />
         </AppButton>
-        <AppButton onPress={saveHandler} color={THEME.BUTTON_BACKGROUND_COLOR}>
+        <AppButton onPress={saveHandler} color={BUTTON.BACKGROUND_COLOR}>
           <FontAwesomeIcon
             icon={faPlus}
             style={styles.icon}
-            size={THEME.ICON_SIZE}
-            color={THEME.TEXT_COLOR}
+            size={ICON.SIZE}
+            color={TEXT.COLOR}
           />
         </AppButton>
       </View>
@@ -96,11 +96,11 @@ export const AddTodo = () => {
             <View style={styles.sheetPrioritySwitch}>
               <Switch
                 trackColor={{
-                  false: THEME.LOW_PRIORITY_COLOR,
-                  true: THEME.HIGH_PRIORITY_COLOR,
+                  false: COLOR.LOW_PRIORITY,
+                  true: COLOR.HIGH_PRIORITY,
                 }}
                 thumbColor={
-                  priority ? THEME.HIGH_PRIORITY_COLOR : THEME.LOW_PRIORITY_COLOR
+                  priority ? COLOR.HIGH_PRIORITY : COLOR.LOW_PRIORITY
                 }
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={togglePriority}
@@ -112,7 +112,7 @@ export const AddTodo = () => {
             <TextInput
               style={styles.sheetInput}
               placeholder="Новое дело..."
-              placeholderTextColor={THEME.TEXT_PLACEHOLDER_COLOR}
+              placeholderTextColor={TEXT.PLACEHOLDER_COLOR}
               onChangeText={setText}
               value={text}
               maxLength={128}
@@ -123,7 +123,7 @@ export const AddTodo = () => {
               onPress={saveHandler}
               title="Добавить"
               style={styles.sheetButton}
-              color={THEME.BUTTON_BACKGROUND_COLOR}
+              color={BUTTON.BACKGROUND_COLOR}
             />
           </View>
         </View>
@@ -134,10 +134,10 @@ export const AddTodo = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
     paddingVertical: 20,
-    borderTopColor: THEME.BORDER_DARK_COLOR,
-    borderBottomColor: THEME.BORDER_LIGHT_COLOR,
+    borderTopColor: BUTTON.BORDER_DARK_COLOR,
+    borderBottomColor: BUTTON.BORDER_LIGHT_COLOR,
     borderTopWidth: 1,
     borderBottomWidth: 1,
   },
@@ -153,15 +153,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: THEME.INPUT_BORDER_COLOR,
-    color: THEME.TEXT_COLOR,
+    borderBottomColor: COLOR.INPUT_BORDER,
+    color: TEXT.COLOR,
     width: '75%',
   },
   icon: {
     alignSelf: 'center',
   },
   sheetContainer: {
-    backgroundColor: THEME.SHEET_BACKGROUND_COLOR,
+    backgroundColor: COLOR.SHEET_BACKGROUND,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     alignContent: 'space-between',
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     // borderRightWidth: 2
   },
   sheetTitle: {
-    color: THEME.TEXT_COLOR,
+    color: TEXT.COLOR,
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 10,
@@ -210,9 +210,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 8,
     paddingVertical: 6,
-    color: THEME.TEXT_COLOR,
+    color: TEXT.COLOR,
     borderBottomWidth: 1,
-    borderBottomColor: THEME.INPUT_BORDER_COLOR,
+    borderBottomColor: COLOR.INPUT_BORDER,
   },
   sheetButtonsContainer: {
     // width: '90%',

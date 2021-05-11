@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Modal, Alert, Button, Switch} from 'react-native';
-import {THEME} from './../theme/theme';
-import {AppText} from './ui/AppText';
-import {AppTextBold} from './ui/AppTextBold';
+import { BUTTON, COLOR, TEXT } from './../theme';
+import {AppText} from './ui';
+import {AppTextBold} from './ui';
 
 export const EditModal = ({visible, onCancel, text, priority, collection, onSave}) => {
   const [title, setTitle] = useState(text);
@@ -39,8 +39,8 @@ export const EditModal = ({visible, onCancel, text, priority, collection, onSave
           </View>
           <View style={styles.sheetPrioritySwitch}>
             <Switch
-              trackColor={{false: THEME.LOW_PRIORITY_COLOR, true: THEME.HIGH_PRIORITY_COLOR}}
-              thumbColor={order ? THEME.HIGH_PRIORITY_COLOR : THEME.LOW_PRIORITY_COLOR}
+              trackColor={{false: COLOR.LOW_PRIORITY, true: COLOR.HIGH_PRIORITY}}
+              thumbColor={order ? COLOR.HIGH_PRIORITY : COLOR.LOW_PRIORITY}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleOrder}
               value={order}
@@ -52,20 +52,20 @@ export const EditModal = ({visible, onCancel, text, priority, collection, onSave
           onChangeText={setTitle}
           style={styles.input}
           placeholder="Введите название"
-          placeholderTextColor={THEME.TEXT_PLACEHOLDER_COLOR}
+          placeholderTextColor={TEXT.PLACEHOLDER_COLOR}
           maxLength={128}
         />
         <View style={styles.buttons}>
           <Button
             title="Отмена"
             style={styles.button}
-            color={THEME.BUTTON_BACKGROUND_COLOR}
+            color={BUTTON.BACKGROUND_COLOR}
             onPress={cancelHanlder}
           />
           <Button
             title="Сохранить"
             style={styles.button}
-            color={THEME.BUTTON_BACKGROUND_COLOR}
+            color={BUTTON.BACKGROUND_COLOR}
             onPress={saveHandler}
           />
         </View>
@@ -79,19 +79,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: THEME.BACKGROUND_COLOR,
+    backgroundColor: COLOR.BACKGROUND,
   },
   header: {
     fontWeight: 'bold',
     fontSize: 24,
     marginBottom: 30,
-    color: THEME.TEXT_COLOR,
+    color: TEXT.COLOR,
   },
   input: {
     padding: 10,
     borderBottomWidth: 2,
-    borderBottomColor: THEME.INPUT_BORDER_COLOR,
-    color: THEME.TEXT_COLOR,
+    borderBottomColor: COLOR.INPUT_BORDER,
+    color: TEXT.COLOR,
     width: '80%',
   },
   buttons: {

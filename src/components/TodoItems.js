@@ -11,10 +11,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
-import {AppButton} from './ui/AppButton';
-import {AppText} from './ui/AppText';
+import {AppButton} from './ui';
+import {AppText} from './ui';
 import {TodoItem} from './TodoItem';
-import {THEME} from './../theme/theme';
+import { BUTTON, ICON, LIST, TEXT } from './../theme';
 
 export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
@@ -134,23 +134,23 @@ export const TodoItems = () => {
         <AppButton onPress={() => requestSort('text')}>
           <FontAwesomeIcon
             icon={getIconNamesForSort('text') || faSort}
-            size={THEME.ICON_SIZE}
-            color={THEME.TEXT_COLOR}
+            size={ICON.SIZE}
+            color={TEXT.COLOR}
           />
         </AppButton>
         <AppText style={styles.textShaded}>Приоритет:</AppText>
         <AppButton onPress={() => requestSort('priority')}>
           <FontAwesomeIcon
             icon={getIconNamesForSort('priority') || faSort}
-            size={THEME.ICON_SIZE}
-            color={THEME.TEXT_COLOR}
+            size={ICON.SIZE}
+            color={TEXT.COLOR}
           />
         </AppButton>
         <AppButton>
           <FontAwesomeIcon
             icon={getIconNamesForFilter(filteringOption) || filterIcon}
-            size={THEME.ICON_SIZE}
-            color={THEME.TEXT_COLOR}
+            size={ICON.SIZE}
+            color={TEXT.COLOR}
           />
         </AppButton>
       </View>
@@ -178,20 +178,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: THEME.ITEM_BACKGROUND_COLOR,
+    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
     paddingHorizontal: 5,
     paddingVertical: 10,
     borderRadius: 10,
-    borderTopColor: THEME.BORDER_LIGHT_COLOR,
-    borderRightColor: THEME.BORDER_DARK_COLOR,
-    borderBottomColor: THEME.BORDER_DARK_COLOR,
-    borderLeftColor: THEME.BORDER_LIGHT_COLOR,
+    borderTopColor: BUTTON.BORDER_LIGHT_COLOR,
+    borderRightColor: BUTTON.BORDER_DARK_COLOR,
+    borderBottomColor: BUTTON.BORDER_DARK_COLOR,
+    borderLeftColor: BUTTON.BORDER_LIGHT_COLOR,
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
   },
   textShaded: {
-    color: THEME.TEXT_SHADED,
+    color: TEXT.SHADED,
   },
 });
