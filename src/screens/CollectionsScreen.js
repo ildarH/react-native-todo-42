@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
   View,
-  StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
   FlatList,
@@ -13,7 +12,8 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {useSelector} from 'react-redux';
 import {Header} from './../components/Header';
 import { AppButton } from './../components/ui';
-import { BUTTON, COLOR, ICON, TEXT } from './../theme';
+import { BUTTON, ICON, TEXT } from './../theme';
+import { styles } from './CollectionsScreenStyle'
 
 export const CollectionsScreen = () => {
   const [text, setText] = useState()
@@ -59,15 +59,3 @@ export const CollectionsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  buttons: {
-    paddingHorizontal: 40,
-  },
-  errorContainer: {
-    flex: 1,
-  },
-  wrapper: {
-    flex: 1,
-    backgroundColor: COLOR.BACKGROUND,
-  },
-});

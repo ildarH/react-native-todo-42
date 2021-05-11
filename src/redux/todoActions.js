@@ -1,4 +1,4 @@
-import {Http} from './../http';
+import {Http} from './../api/http';
 import {
   ADD_TODO,
   DELETE_TODO,

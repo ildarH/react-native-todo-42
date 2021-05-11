@@ -7,9 +7,9 @@ import {
   FlatList,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import { COLOR } from './../theme';
 import {Header} from './../components/Header';
 import {TodoItem} from './../components/TodoItem';
+import {styles} from './CompletedScreenStyle'
 
 export const CompletedScreen = () => {
 
@@ -32,15 +32,4 @@ export const CompletedScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  buttons: {
-    paddingHorizontal: 40,
-  },
-  errorContainer: {
-    flex: 1,
-  },
-  wrapper: {
-    flex: 1,
-    backgroundColor: COLOR.BACKGROUND,
-  },
-});
+

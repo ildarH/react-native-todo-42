@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Button,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,7 +12,7 @@ import {Header} from './../components/Header';
 import {AddTodo} from './../components/AddTodo';
 import {TodoItems} from './../components/TodoItems';
 import {fetchAllTodos} from './../redux/todoActions';
-import { COLOR } from './../theme';
+import {styles} from './MainScreenStyle'
 
 export const MainScreen = () => {
   const dispatch = useDispatch();
@@ -44,16 +43,3 @@ export const MainScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  buttons: {
-    paddingHorizontal: 40,
-  },
-  errorContainer: {
-    flex: 1,
-  },
-  wrapper: {
-    flex: 1,
-    backgroundColor: COLOR.BACKGROUND,
-  },
-});

@@ -1,4 +1,4 @@
-import baseUrl from './../configUrlDatabase';
+import baseUrl from './../../configUrlDatabase';
 
 export class Http {
   static HEADERS = { 'Content-Type': 'application/json' }

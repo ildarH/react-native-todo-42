@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { COLOR } from './../../theme';
+import {styles} from './AppLoadingStyle'
 
 export const AppLoading = () => (
   <View style={styles.center}>
@@ -8,10 +9,3 @@ export const AppLoading = () => (
   </View>
 );
 
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-});

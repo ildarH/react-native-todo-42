@@ -1,12 +1,8 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text} from 'react-native';
+import {styles} from './AppTextBoldStyle'
 
 export const AppTextBold = props => (
   <Text style={{...styles.default, ...props.style}}>{props.children}</Text>
 );
 
-const styles = StyleSheet.create({
-  default: {
-    fontWeight: 'bold'
-  },
-});

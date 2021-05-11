@@ -1,5 +1,5 @@
 import React, {useState, useMemo} from 'react';
-import {View, FlatList, StyleSheet, Text} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   faSortDown as ascending,
@@ -14,7 +14,8 @@ import {deleteTodo, updateTodo, toggleTodo} from './../redux/todoActions';
 import {AppButton} from './ui';
 import {AppText} from './ui';
 import {TodoItem} from './TodoItem';
-import { BUTTON, ICON, LIST, TEXT } from './../theme';
+import { ICON, TEXT } from './../theme';
+import {styles} from './TodoItemsStyle'
 
 export const useSortData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
@@ -168,30 +169,3 @@ export const TodoItems = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  list: {
-    marginTop: 20,
-    paddingHorizontal: 40,
-  },
-  sortButtons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
-    paddingHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderTopColor: BUTTON.BORDER_LIGHT_COLOR,
-    borderRightColor: BUTTON.BORDER_DARK_COLOR,
-    borderBottomColor: BUTTON.BORDER_DARK_COLOR,
-    borderLeftColor: BUTTON.BORDER_LIGHT_COLOR,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-  },
-  textShaded: {
-    color: TEXT.SHADED,
-  },
-});

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { COLOR, TEXT } from './../theme';
+import { View } from 'react-native';
 import { AppTextBold } from './ui';
+import { styles } from './HeaderStyle';
 
 export const Header = ({ title }) => {
   return (
@@ -10,17 +10,3 @@ export const Header = ({ title }) => {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    height: 80,
-    paddingTop: 25,
-    backgroundColor: COLOR.BACKGROUND
-  },
-  title: {
-    textAlign: 'center',
-    color: TEXT.COLOR,
-    fontSize: 20,
-    fontWeight: 'bold'
-  }
-})

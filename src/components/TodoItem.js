@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, Text, View, Alert} from 'react-native';
+import {TouchableOpacity, Text, View, Alert} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {EditModal} from './EditModal';
 import {AppButton} from './ui';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { BUTTON, COLOR, ICON, LIST, TEXT } from './../theme';
+import {BUTTON, COLOR, ICON} from './../theme';
+import {styles} from './TodoItemStyle';
 
 export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
   const [modal, setModal] = useState(false);
@@ -62,7 +63,11 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
       ) : (
         <View style={styles.iconContainer} />
       )}
-      <TouchableOpacity style={[styles.listContainer, toggleCheckBox ? styles.listContainerDone : null]}>
+      <TouchableOpacity
+        style={[
+          styles.listContainer,
+          toggleCheckBox ? styles.listContainerDone : null,
+        ]}>
         <CheckBox
           style={styles.checkbox}
           disabled={false}
@@ -96,56 +101,3 @@ export const TodoItem = ({item, onDelete, onSave, onToggle}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    marginTop: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  iconContainer: {
-    alignItems: 'center',
-    width: '5%',
-  },
-  icon: {
-    alignSelf: 'center',
-  },
-  listContainer: {
-    flexDirection: 'row',
-    width: '90%',
-    padding: 10,
-    alignSelf: 'flex-start',
-    borderTopColor: BUTTON.BORDER_DARK_COLOR,
-    borderRightColor: BUTTON.BORDER_LIGHT_COLOR,
-    borderBottomColor: BUTTON.BORDER_LIGHT_COLOR,
-    borderLeftColor: BUTTON.BORDER_DARK_COLOR,
-    borderTopWidth: 2,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 2,
-    borderStyle: 'solid',
-    borderRadius: 10,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
-  },
-  listContainerDone: {
-    backgroundColor: LIST.ITEM_DONE_BACKGROUND_COLOR
-  },
-  checkbox: {
-    width: '5%',
-  },
-  item: {
-    width: '50%',
-    alignSelf: 'center',
-    color: TEXT.COLOR,
-  },
-  buttons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '25%',
-    justifyContent: 'space-between',
-  },
-});
