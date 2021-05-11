@@ -23,8 +23,8 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TODO:
-      return {
+    case ADD_TODO: {
+      const newState = {
         ...state,
         todos: [
           {
@@ -34,13 +34,17 @@ export const reducer = (state = initialState, action) => {
           ...state.todos,
         ],
       };
-    case DELETE_TODO:
-      return {
+      return newState;
+    }
+    case DELETE_TODO: {
+      const newState = {
         ...state,
         todos: state.todos.filter(todo => todo.key !== action.key),
       };
-    case UPDATE_TODO:
-      return {
+      return newState;
+    }
+    case UPDATE_TODO: {
+      const newState = {
         ...state,
         todos: state.todos.map(todo => {
           if (todo.key === action.key) {
@@ -50,19 +54,46 @@ export const reducer = (state = initialState, action) => {
           return todo;
         }),
       };
-    case FETCH_TODOS:
-      return {...state, todos: action.todos, loading: false};
-    case SHOW_LOADER:
-      return {...state, loading: true};
-    case HIDE_LOADER:
-      return {...state, loading: false};
-    case SHOW_ERROR:
-      console.log('reducer error action: ', action);
-      return {...state, error: action.error};
-    case HIDE_ERROR:
-      return {...state, error: null};
+      return newState;
+    }
+    case FETCH_TODOS: {
+      const newState = {
+        ...state,
+        todos: action.todos,
+        loading: false,
+      };
+      return newState;
+    }
+    case SHOW_LOADER: {
+      const newState = {
+        ...state,
+        loading: true,
+      };
+      return newState;
+    }
+    case HIDE_LOADER: {
+      const newState = {
+        ...state,
+        loading: false,
+      };
+      return newState;
+    }
+    case SHOW_ERROR: {
+      const newState = {
+        ...state,
+        error: action.error,
+      };
+      return newState;
+    }
+    case HIDE_ERROR: {
+      const newState = {
+        ...state,
+        error: null,
+      };
+      return newState;
+    }
     case TOGGLE_DONE: {
-      let toggledState = state.todos.map(todo => {
+      const toggledState = state.todos.map(todo => {
         if (action.payload === todo.key) {
           todo.done = !todo.done;
         }
@@ -75,8 +106,8 @@ export const reducer = (state = initialState, action) => {
       };
       return newState;
     }
-    case CHANGE_PRIORITY:
-      return {
+    case CHANGE_PRIORITY: {
+      const newState = {
         ...state,
         todos: state.todos.map(todo => {
           if (todo.key === action.key) {
@@ -85,22 +116,21 @@ export const reducer = (state = initialState, action) => {
           return todo;
         }),
       };
-    case ADD_COLLECTION:
-      {
-        console.log('ADD COLLECTION state before: ', state);
-        const newState = {
-          ...state,
-          collections: [
-            {
-              key: action.key,
-              ...action.collections,
-            },
-            ...state.collections,
-          ],
-        };
-        console.log('ADD COLLECTION state after: ', newState);
-        return newState;
-      }
+      return newState;
+    }
+    case ADD_COLLECTION: {
+      console.log('ADD COLLECTION state before: ', state);
+      const newState = {
+        ...state,
+        collections: [...action.collections],
+      };
+      console.log('ADD COLLECTION state after: ', newState);
+      return newState;
+    }
+    case DELETE_COLLECTION: {
+      console.log('DELETE COLLECTION');
+      break;
+    }
     default:
       return state;
   }
