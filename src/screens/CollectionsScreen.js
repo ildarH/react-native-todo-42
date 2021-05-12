@@ -5,18 +5,18 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   FlatList,
-  Text,
   TextInput,
   Alert,
 } from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {useSelector, useDispatch} from 'react-redux';
-import {addCollection, fetchCollection} from './../redux/collectionsActions';
+import { addCollection, fetchCollection, deleteCollection } from './../redux/collectionsActions';
 import {Header} from './../components/Header';
 import {AppButton} from './../components/ui';
 import {BUTTON, ICON, TEXT} from './../theme';
 import {styles} from './CollectionsScreenStyle';
+import {CollectionsItem} from '../components/CollectionsItem';
 
 export const CollectionsScreen = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ export const CollectionsScreen = () => {
   const collections = useSelector(state => state.todo.collections);
 
   const saveHandler = () => {
-    console.log('save handler add collection');
     if (text.trim().length > 3) {
       const newCollection = [...collections, text.trim()];
       Keyboard.dismiss();
@@ -39,6 +38,22 @@ export const CollectionsScreen = () => {
       dispatch(addCollection(newCollection));
     } else {
       Alert.alert('Название должно быть больше 3-х символов');
+    }
+  };
+
+  const deleteHandler = key => {
+    if (collections[key] !== 'main') {
+      Alert.alert(
+        'Удаление',
+        `Вы уверены, что хотите удалить "${collections[key]}"?`,
+        [
+          {text: 'Отмена', style: 'cancel'},
+          {text: 'Удалить', style: 'destructive', onPress: () => {
+            dispatch(deleteCollection(collections[key]))}
+          },
+        ],
+        {cancelable: true},
+      );
     }
   };
 
@@ -69,10 +84,14 @@ export const CollectionsScreen = () => {
           <FlatList
             data={collections}
             keyExtractor={index => index.toString()}
-            renderItem={({item}) => (
-              <View style={styles.item}>
-                <Text style={styles.itemText}> {item} </Text>
-              </View>
+            renderItem={collection => (
+              <CollectionsItem
+                collection={collection}
+                deleteHandler={deleteHandler}
+              />
+              // <View style={styles.item}>
+              //   <Text style={styles.itemText}> {item} </Text>
+              // </View>
             )}
           />
         </View>

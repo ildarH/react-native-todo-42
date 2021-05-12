@@ -34,6 +34,9 @@ export const updateTodo = (key, updatedTodo) => async dispatch => {
   await Http.patch(`todos/${key}.json`, { ...updatedTodo });
   dispatch({type: UPDATE_TODO, key, payload: updatedTodo});
 };
+export const updateAllTodos = () => async dispatch => {
+  await Http.post(`todos.json`)
+}
 export const showLoader = () => async dispatch => {
   await dispatch({type: SHOW_LOADER});
 };

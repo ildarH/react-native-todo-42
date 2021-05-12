@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {BUTTON, COLOR, LIST, TEXT} from './../theme'
+import {BUTTON, COLOR, LIST, TEXT} from './../theme';
 
 export const styles = StyleSheet.create({
   wrapper: {
-    flex: 1
+    flex: 1,
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   list: {
     flexDirection: 'row',
-    
+
     paddingHorizontal: 20,
     paddingVertical: 20,
     justifyContent: 'space-between',
@@ -37,16 +37,4 @@ export const styles = StyleSheet.create({
     backgroundColor: COLOR.BACKGROUND,
     flex: 1,
   },
-  item: {
-    marginBottom: 20,
-    backgroundColor: LIST.ITEM_BACKGROUND_COLOR,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    borderRadius: 10
-  },
-  itemText: {
-    color: TEXT.COLOR,
-    paddingLeft: 10
-  }
-
 });

@@ -7,10 +7,14 @@ import {
 } from './types';
 
 export const addCollection = collections => async dispatch => {
-  console.log('addCollection: ', collections);
-  // await Http.post('collections', collections)
   dispatch({type: ADD_COLLECTION, collections});
 };
 export const fetchCollection = () => async dispatch => {
-  await dispatch({type: FETCH_COLLECTION})
+  await dispatch({type: FETCH_COLLECTION});
+};
+export const deleteCollection = collection => async dispatch => {
+  await dispatch({type: DELETE_COLLECTION, collection});
+};
+export const renameCollection = (oldName, newName) => async dispatch => {
+  await dispatch({type: RENAME_COLLECTION, oldName, newName})
 }

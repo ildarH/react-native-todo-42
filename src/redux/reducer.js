@@ -12,6 +12,7 @@ import {
   ADD_COLLECTION,
   DELETE_COLLECTION,
   FETCH_COLLECTION,
+  RENAME_COLLECTION,
 } from './types';
 
 const initialState = {
@@ -143,8 +144,36 @@ export const reducer = (state = initialState, action) => {
       return newState;
     }
     case DELETE_COLLECTION: {
-      console.log('DELETE COLLECTION');
-      break;
+      const newState = {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.collection === action.collection) {
+            todo.collection = 'main'
+          }
+          return todo
+        }),
+        collections: [...state.collections].filter(item => item !== action.collection)
+      }
+      return newState
+    }
+    case RENAME_COLLECTION: {
+      const newState = {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.collection === action.oldName) {
+            todo.collection = action.newName
+          }
+          return todo
+        }),
+        collections: [...state.collections.map(item => {
+          if (item === action.oldName) {
+            item = action.newName
+          };
+          return item
+        })]
+      }
+      console.log('RENAME COLLECTION:', newState.collections);
+      return newState;
     }
     default:
       return state;
