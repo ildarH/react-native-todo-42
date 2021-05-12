@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { COLOR, TEXT } from './../theme';
+import { COLOR, TEXT, BUTTON } from './../theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,6 +20,27 @@ export const styles = StyleSheet.create({
     borderBottomColor: COLOR.INPUT_BORDER,
     color: TEXT.COLOR,
     width: '80%',
+  },
+  dropDownWrapper: {
+    // width: '100%',
+    // alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // alignItems: 'center'
+    backgroundColor: COLOR.TAB_BACKGROUND
+  },
+  dropDown: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    backgroundColor: '#FFF',
+    width: '50%',
+    borderColor: BUTTON.BORDER_DARK_COLOR,
+    borderWidth: 1,
+    borderRadius: 4,
+    // color: TEXT.COLOR
+  },
+  dropDownText: {
+
   },
   buttons: {
     flexDirection: 'row',

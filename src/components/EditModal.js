@@ -1,15 +1,25 @@
 import React, {useState} from 'react';
 import {View, TextInput, Modal, Alert, Button, Switch} from 'react-native';
-import { BUTTON, COLOR, TEXT } from './../theme';
+import {useSelector} from 'react-redux';
+import ModalDropdown from 'react-native-modal-dropdown';
+import {BUTTON, COLOR, TEXT} from './../theme';
 import {AppText} from './ui';
 import {AppTextBold} from './ui';
-import { styles } from './EditModalStyle'
+import {styles} from './EditModalStyle';
 
-export const EditModal = ({visible, onCancel, text, priority, collection, onSave}) => {
+export const EditModal = ({
+  visible,
+  onCancel,
+  text,
+  priority,
+  collection,
+  onSave,
+}) => {
   const [title, setTitle] = useState(text);
   const [order, setOrder] = useState(priority);
   const [category, setCategory] = useState(collection);
   const toggleOrder = () => setOrder(previousState => !previousState);
+  const collectionOptions = useSelector(state => state.todo.collections);
   const saveHandler = () => {
     if (title.trim().length < 3) {
       Alert.alert('Ошибка', 'Минимальная длина 3 символа.');
@@ -17,8 +27,8 @@ export const EditModal = ({visible, onCancel, text, priority, collection, onSave
       const updatedTodo = {
         text: title,
         priority: order,
-        collection: category
-      }
+        collection: category,
+      };
       onSave(updatedTodo);
     }
   };
@@ -40,14 +50,26 @@ export const EditModal = ({visible, onCancel, text, priority, collection, onSave
           </View>
           <View style={styles.sheetPrioritySwitch}>
             <Switch
-              trackColor={{false: COLOR.LOW_PRIORITY, true: COLOR.HIGH_PRIORITY}}
+              trackColor={{
+                false: COLOR.LOW_PRIORITY,
+                true: COLOR.HIGH_PRIORITY,
+              }}
               thumbColor={order ? COLOR.HIGH_PRIORITY : COLOR.LOW_PRIORITY}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleOrder}
               value={order}
             />
           </View>
+
         </View>
+        <View style={styles.dropDownWrapper}>
+            <ModalDropdown
+              defaultValue="main"
+              style={styles.dropDown}
+              options={collectionOptions}
+              onSelect={value => setCategory(collectionOptions[value])}
+            />
+          </View>
         <TextInput
           value={title}
           onChangeText={setTitle}
